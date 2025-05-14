@@ -20,7 +20,7 @@ pipeline {
 
         stage('Wait and Test') {
             steps {
-                bat 'timeout /t 10'
+                bat 'ping 127.0.0.1 -n 11 > nul'  // 10-second delay
                 bat 'curl -v http://localhost:8080'
             }
         }
