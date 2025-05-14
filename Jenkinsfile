@@ -11,17 +11,17 @@ pipeline {
         stage('Serve Web Page') {
             steps {
                 script {
-                    sh 'mkdir -p web'
+                    bat 'mkdir web'
                     writeFile file: 'web/index.html', text: '<!DOCTYPE html><html><head><title>Sample</title></head><body><h1>Hello from Jenkins!</h1></body></html>'
-                    sh 'nohup python3 -m http.server 8080 --directory web &'
+                    bat 'start python -m http.server 8080 --directory web'
                 }
             }
         }
 
         stage('Wait and Test') {
             steps {
-                sh 'sleep 10'
-                sh 'curl -v http://localhost:8080'
+                bat 'timeout /t 10'
+                bat 'curl -v http://localhost:8080'
             }
         }
     }
