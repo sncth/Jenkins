@@ -11,7 +11,8 @@ pipeline {
         stage('Serve Web Page') {
             steps {
                 script {
-                    bat 'mkdir web'
+                    // Only create the directory if it doesn't already exist
+                    bat 'if not exist web mkdir web'
                     writeFile file: 'web/index.html', text: '<!DOCTYPE html><html><head><title>Sample</title></head><body><h1>Hello from Jenkins!</h1></body></html>'
                     bat 'start python -m http.server 8080 --directory web'
                 }
